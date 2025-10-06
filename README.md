@@ -39,15 +39,25 @@ O dataset contém **5.002 registros** de ocorrências policiais com as seguintes
 
 ## 🛠️ Tecnologias Utilizadas
 
-### Linguagem e Bibliotecas:
-- **Python 3.x**
-- **pandas 2.0.3** - Manipulação de dados
-- **numpy 1.26.0** - Computação numérica
+### Backend:
+- **Python 3.11+**
+- **FastAPI** - Framework web moderno e rapido
+- **pandas 2.0.3** - Manipulacao de dados
+- **numpy 1.26.0** - Computacao numerica
 - **scikit-learn 1.3.0** - Machine learning
-- **matplotlib 3.7.2** - Visualização
-- **seaborn 0.12.2** - Visualização estatística
+- **matplotlib 3.7.2** - Visualizacao
+- **seaborn 0.12.2** - Visualizacao estatistica
+
+### Frontend:
+- **React 18** - Framework JavaScript
+- **Vite** - Build tool rapida
+- **Leaflet** - Mapas interativos
+- **Recharts** - Graficos e visualizacoes
+- **Tailwind CSS** - Estilizacao moderna
+- **Axios** - Cliente HTTP
 
 ### Modelos de Machine Learning:
+- **K-Means Clustering** - Agrupamento de bairros por risco
 - **RandomForestRegressor** - Modelo baseline
 - **HistGradientBoostingRegressor** - Modelo principal (escolhido)
 
@@ -92,29 +102,36 @@ O dataset contém **5.002 registros** de ocorrências policiais com as seguintes
 
 ## 🚀 Como Executar
 
-### 1. Pré-requisitos
-```bash
-# Clone o repositório
-git clone [URL_DO_REPOSITORIO]
-cd Previs-o_crimes-main
+### Backend (API)
 
-# Instale as dependências
+```powershell
+# Instale as dependencias Python
 pip install -r requirements.txt
+
+# Rode a API
+uvicorn app.main:app --reload --port 8000
 ```
 
-### 2. Executar Análises
-```bash
-# Inicie o Jupyter Notebook
-jupyter notebook
+API disponivel em: `http://localhost:8000`
+Documentacao: `http://localhost:8000/docs`
 
-# Execute os notebooks na ordem:
-# 1. notebooks/EDA.ipynb
-# 2. notebooks/processamento.ipynb
+### Frontend (React)
+
+```powershell
+# Entre na pasta do frontend
+cd frontend
+
+# Instale as dependencias
+npm install
+
+# Rode o frontend
+npm run dev
 ```
 
-### 3. Estrutura de Execução
-1. **EDA.ipynb**: Execute todas as células para análise exploratória
-2. **processamento.ipynb**: Execute para treinar e avaliar modelos
+Frontend disponivel em: `http://localhost:5173`
+
+### Guia Completo
+Para instrucoes detalhadas, consulte: **`COMO_RODAR_COMPLETO.md`**
 
 ## 🎭 Contexto do Problema
 
@@ -147,12 +164,75 @@ Em **março de 2025**, aproximadamente **R$ 300 mil em drogas** foram apreendida
 
 
 
+## 🌐 API REST
+
+O projeto inclui uma **API completa** para consumo dos modelos via requisições HTTP:
+
+### 🚀 Iniciar a API
+```bash
+cd Crime_prediction
+uvicorn app.main:app --reload --port 8000
+```
+
+### 📚 Documentação Interativa
+Acesse: **http://localhost:8000/docs**
+
+### 🎯 Modelos Disponíveis
+
+#### 1️⃣ **Clustering (Não Supervisionado)**
+Agrupa bairros por padrões de criminalidade
+
+```powershell
+# Exemplo: Prever cluster de um bairro
+Invoke-RestMethod -Uri "http://localhost:8000/clustering/predict" `
+  -Method POST -ContentType "application/json" `
+  -Body '{"bairro": "Boa Viagem"}'
+```
+
+**Endpoints:**
+- `GET /clustering/` - Lista todos os bairros e clusters
+- `POST /clustering/predict` - Prediz cluster de um bairro
+- `GET /clustering/clusters/info` - Informações dos clusters
+- `GET /clustering/bairros/ranking` - Ranking dos bairros
+
+#### 2️⃣ **Predição (Supervisionado)**
+Prevê quantidade exata de crimes por período
+
+```powershell
+# Exemplo: Prever crimes para novembro/2025
+$body = @{
+    bairro = "Boa Viagem"
+    ano = 2025
+    mes = 11
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8000/predicao/predict" `
+  -Method POST -ContentType "application/json" -Body $body
+```
+
+**Endpoints:**
+- `GET /predicao/` - Informações do modelo
+- `POST /predicao/predict` - Prevê crimes para um bairro
+- `POST /predicao/predict/multiplos` - Prevê para múltiplos bairros
+- `GET /predicao/historico/{bairro}` - Histórico de crimes
+
+### 📖 Guia Completo
+Para exemplos detalhados e casos de uso, consulte: **`GUIA_API.md`**
+
+### 🧪 Testar API
+```powershell
+# Execute todos os testes
+.\testar_api_completa.ps1
+```
+
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-
+---
 
 <div align="center">
-  <strong>📊 Dados • 🤖 Machine Learning • 🏛️ Segurança Pública</strong>
+  <strong>📊 Dados • 🤖 Machine Learning • 🏛️ Segurança Pública • 🌐 API REST</strong>
+  
+  **[Documentação da API](GUIA_API.md)** | **[Notebooks](notebooks/)** | **[Dataset](data/raw/)**
 </div>

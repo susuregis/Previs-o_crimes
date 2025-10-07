@@ -160,10 +160,25 @@ def prever_crimes(data: dict):
     
     # Fazer predição
     try:
+<<<<<<< HEAD
         previsao = float(modelo_supervisionado.predict(dados_predicao)[0])
         previsao = max(0, round(previsao, 2))  # Não pode ser negativo
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro na predição: {str(e)}")
+=======
+        # Debug: verificar tipo do modelo
+        print(f"Tipo do modelo: {type(modelo_supervisionado)}")
+        print(f"Dados para predição:\n{dados_predicao}")
+        print(f"Tipos das colunas: {dados_predicao.dtypes}")
+        
+        previsao = float(modelo_supervisionado.predict(dados_predicao)[0])
+        previsao = max(0, round(previsao, 2))  # Não pode ser negativo
+    except Exception as e:
+        import traceback
+        erro_completo = traceback.format_exc()
+        print(f"Erro completo:\n{erro_completo}")
+        raise HTTPException(status_code=500, detail=f"Erro na predição: {str(e)}\nVerifique os logs do servidor para mais detalhes.")
+>>>>>>> master
     
     # Calcular nível de risco
     if previsao >= 10:

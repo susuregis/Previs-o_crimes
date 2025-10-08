@@ -1,25 +1,98 @@
 #  Previsão de Crimes - Recife
 
+
+![alt text](image-1.png)
+
+
+## 1 - Descrição do projeto 
+
 Um projeto de análise de dados e machine learning para previsão de crimes na região metropolitana do Recife, com foco em análise exploratória e modelagem preditiva baseada em dados históricos de ocorrências policiais.
 
-## Objetivo
 
-Este projeto tem como objetivo desenvolver um modelo de machine learning capaz de prever a ocorrência de crimes por bairro e período temporal, contribuindo para estratégias de segurança pública mais eficazes e alocação otimizada de recursos policiais.
 
-## Estrutura do Projeto
+## 2 - Problema do negócio e objetivo do projeto
 
-```
-├── data/
-│   └── raw/
-│       └── dataset_ocorrencias_delegacia_5.csv    # Dataset com 5.000+ ocorrências
-├── notebooks/
-│   ├── EDA.ipynb                                  # Análise Exploratória de Dados
-│   └── processamento.ipynb                        # Processamento e Modelagem
-├── requirements.txt                               # Dependências do projeto
-└── README.md                                      # Documentação do projeto
-```
 
-## 🔍 Dataset
+Em **março de 2025**, aproximadamente **R$ 300 mil em drogas** foram apreendidas no Centro de Tratamento de Encomendas dos Correios em Recife, evidenciando:
+
+- **Rota interestadual**: SP → Recife → Interior do Nordeste
+- **Sofisticação criminosa**: Uso de encomendas disfarçadas
+
+Isso fez com que a policia ficasse preocupada e queria resolver e diminuir o trafico de drogas nos bairros de recife.
+
+Considerando isso, os objetivos do projeto são : 
+
+- identificar insights de crimes em padrões sazonais.
+- construir um modelo capaz de prever a ocorrência de crimes por bairro e período temporal, contribuindo para estratégias de segurança pública mais eficazes e alocação otimizada de recursos policiais.
+- Mostrar os resultados de crimes previstos e estrátegias de combate-lo.
+
+
+## 3 - Estrutura do Projeto
+
+Previsao_crimes/
+│
+├── 📁 app/                                          # Backend da aplicação
+│   ├── __init__.py                                  # Inicializador do pacote Python
+│   ├── main.py                                      # API FastAPI - servidor principal
+│   ├── clustering.py                                # Endpoints do modelo de clustering (K-Means)
+│   ├── supervisionado.py                            # Endpoints do modelo supervisionado (predição)
+│   └── 📁 models/                                   # Modelos treinados e metadados
+│       ├── modelo_clustering.pkl                    # Modelo K-Means serializado
+│       ├── modelo_supervisionado.pkl                # Modelo HistGradientBoosting serializado
+│       ├── bairros_clusters.csv                     # Mapeamento de bairros para clusters
+│       └── cluster_stats.csv                        # Estatísticas de cada cluster
+│
+├── 📁 data/                                         # Diretório de dados
+│   ├── 📁 raw/                                      # Dados brutos originais
+│   │   └── dataset_ocorrencias_delegacia_5.csv      # 5.002 ocorrências criminais (2022-2025)
+│   └── 📁 processed/                                # Dados processados
+│       └── dados_processados.csv                    # Dataset com features engenheiradas
+│
+├── 📁 notebooks/                                    # Jupyter Notebooks para análise
+│   ├── EDA.ipynb                                    # Análise Exploratória de Dados completa
+│   ├── modelling_supervisionado.ipynb               # Desenvolvimento do modelo de regressão
+│   └── modelling_naosupervisionado.ipynb            # Desenvolvimento do clustering K-Means
+│
+├── 📁 Pipeline/                                     # Scripts de automação
+│   └── train_modelo_supervisionado.py               # Pipeline de retreino do modelo
+│
+├── 📁 frontend/                                     # Interface web React
+│   ├── 📁 public/                                   # Arquivos públicos estáticos
+│   │   └── diagnostico.html                         # Página de diagnóstico do sistema
+│   ├── 📁 src/                                      # Código-fonte React
+│   │   ├── main.jsx                                 # Entry point da aplicação React
+│   │   ├── App.jsx                                  # Componente raiz da aplicação
+│   │   ├── index.css                                # Estilos globais com Tailwind
+│   │   ├── 📁 components/                           # Componentes reutilizáveis
+│   │   │   └── Layout.jsx                           # Layout padrão da aplicação
+│   │   ├── 📁 pages/                                # Páginas da aplicação
+│   │   │   ├── Dashboard.jsx                        # Dashboard principal com métricas
+│   │   │   ├── ClusteringAnalysis.jsx               # Análise de agrupamento de bairros
+│   │   │   ├── PredictionAnalysis.jsx               # Predições supervisionadas
+│   │   │   └── MapView.jsx                          # Visualização geográfica (Leaflet)
+│   │   └── 📁 services/                             # Serviços externos
+│   │       └── api.js                               # Cliente HTTP para comunicação com API
+│   ├── index.html                                   # HTML principal da SPA
+│   ├── package.json                                 # Dependências e scripts Node.js
+│   ├── vite.config.js                               # Configuração do Vite (build tool)
+│   ├── tailwind.config.js                           # Configuração do Tailwind CSS
+│   └── postcss.config.js                            # Configuração do PostCSS
+│
+├── 📁 teste/                                        # Scripts de testes da API
+│   ├── test_api_clustering.py                       # Testes dos endpoints de clustering
+│   ├── test_api_predicao.py                         # Testes dos endpoints de predição
+│   └── fix_models_teste.py                          # Script de correção de modelos
+│
+├── 📁 venv/                                         # Ambiente virtual Python (não versionado)
+│
+├── 📄 requirements.txt                              # Dependências Python do projeto
+├── 📄 README.md                                     # Documentação principal do projeto
+└── 📄 .gitignore                                    # Arquivos ignorados pelo Git
+
+
+
+
+## 4 -  explicação do Dataset
 
 O dataset contém **5.002 registros** de ocorrências policiais com as seguintes características:
 
@@ -37,7 +110,7 @@ O dataset contém **5.002 registros** de ocorrências policiais com as seguintes
 ### Período Coberto:
 **2022 - 2025** (dados incluem projeções futuras para validação do modelo)
 
-## 🛠️ Tecnologias Utilizadas
+## 5 Tecnologias Utilizadas
 
 ### Backend:
 - **Python 3.11+**
@@ -59,9 +132,26 @@ O dataset contém **5.002 registros** de ocorrências policiais com as seguintes
 ### Modelos de Machine Learning:
 - **K-Means Clustering** - Agrupamento de bairros por risco
 - **RandomForestRegressor** - Modelo baseline
-- **HistGradientBoostingRegressor** - Modelo principal (escolhido)
+- **HistGradientBoostingRegressor** - Modelo principal
 
-## 📈 Metodologia
+
+
+## 5 -Pipeline da solução e  Metodologia ultilizada 
+
+O seguinte pipeline foi utilizado, baseado na estrutura CRISP-DM
+
+1. Compreensão empresarial.
+2. Compreensão de dados.
+3. Preparação de dados.
+4. Modelagem.
+5. Avaliação.
+6. Implantação.
+
+Estrutura CRISP-DM
+
+![alt text](image.png)
+
+Metodologia 
 
 ### 1. Análise Exploratória de Dados (EDA)
 - Distribuição temporal dos crimes
@@ -86,21 +176,8 @@ O dataset contém **5.002 registros** de ocorrências policiais com as seguintes
 - **Validação**: Train/test split temporal
 - **Comparação**: RandomForest vs HistGradientBoosting
 
-## 🏆 Resultados
 
-### Modelo Escolhido: HistGradientBoostingRegressor
-
-**Justificativa:**
-- ✅ **Melhor performance**: Menores valores de MAE e RMSE
-- ✅ **Captura padrões temporais**: Aproveita efetivamente os lags criados
-- ✅ **Robustez**: Lida bem com dados desbalanceados
-- ✅ **Precisão**: Maior capacidade preditiva para apoio à segurança pública
-
-**Trade-offs:**
-- ⚠️ Maior custo computacional
-- ⚠️ Menor interpretabilidade comparado ao Random Forest
-
-## 🚀 Como Executar
+## 6- Como Executar
 
 ### Backend (API)
 
@@ -133,61 +210,13 @@ Frontend disponivel em: `http://localhost:5173`
 ### Guia Completo
 Para instrucoes detalhadas, consulte: **`COMO_RODAR_COMPLETO.md`**
 
-## 🎭 Contexto do Problema
-
-### Caso Motivador
-Em **março de 2025**, aproximadamente **R$ 300 mil em drogas** foram apreendidas no Centro de Tratamento de Encomendas dos Correios em Recife, evidenciando:
-
-- **Rota interestadual**: SP → Recife → Interior do Nordeste
-- **Sofisticação criminosa**: Uso de encomendas disfarçadas
-- **Necessidade de prevenção**: Importância de modelos preditivos
-
-### Impacto Esperado
-- 📍 **Alocação eficiente** de recursos policiais
-- ⏰ **Prevenção proativa** baseada em previsões
-- 📊 **Tomada de decisão** baseada em dados
-- 🏘️ **Segurança comunitária** melhorada
-
-## 📝 Insights Principais
-
-### Padrões Identificados:
-- Concentração de crimes em determinados bairros
-- Sazonalidade temporal das ocorrências
-- Correlação entre tipo de crime e características do local
-- Influência de fatores socioeconômicos
-
-### Variáveis Mais Importantes:
-- Histórico de crimes no bairro
-- Sazonalidade (mês/dia da semana)
-- Tipo de crime predominante na região
-- Densidade populacional
-
-
-
-## 🌐 API REST
+## API REST
 
 O projeto inclui uma **API completa** para consumo dos modelos via requisições HTTP:
 
-### 🚀 Iniciar a API
-```bash
-cd Crime_prediction
-uvicorn app.main:app --reload --port 8000
-```
 
-### 📚 Documentação Interativa
-Acesse: **http://localhost:8000/docs**
+#### **Predição (não supervisionado)**
 
-### 🎯 Modelos Disponíveis
-
-#### 1️⃣ **Clustering (Não Supervisionado)**
-Agrupa bairros por padrões de criminalidade
-
-```powershell
-# Exemplo: Prever cluster de um bairro
-Invoke-RestMethod -Uri "http://localhost:8000/clustering/predict" `
-  -Method POST -ContentType "application/json" `
-  -Body '{"bairro": "Boa Viagem"}'
-```
 
 **Endpoints:**
 - `GET /clustering/` - Lista todos os bairros e clusters
@@ -195,20 +224,8 @@ Invoke-RestMethod -Uri "http://localhost:8000/clustering/predict" `
 - `GET /clustering/clusters/info` - Informações dos clusters
 - `GET /clustering/bairros/ranking` - Ranking dos bairros
 
-#### 2️⃣ **Predição (Supervisionado)**
-Prevê quantidade exata de crimes por período
+#### **Predição (Supervisionado)**
 
-```powershell
-# Exemplo: Prever crimes para novembro/2025
-$body = @{
-    bairro = "Boa Viagem"
-    ano = 2025
-    mes = 11
-} | ConvertTo-Json
-
-Invoke-RestMethod -Uri "http://localhost:8000/predicao/predict" `
-  -Method POST -ContentType "application/json" -Body $body
-```
 
 **Endpoints:**
 - `GET /predicao/` - Informações do modelo
@@ -216,23 +233,14 @@ Invoke-RestMethod -Uri "http://localhost:8000/predicao/predict" `
 - `POST /predicao/predict/multiplos` - Prevê para múltiplos bairros
 - `GET /predicao/historico/{bairro}` - Histórico de crimes
 
-### 📖 Guia Completo
-Para exemplos detalhados e casos de uso, consulte: **`GUIA_API.md`**
-
-### 🧪 Testar API
-```powershell
-# Execute todos os testes
-.\testar_api_completa.ps1
-```
-
-## 📄 Licença
+## Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
----
+
 
 <div align="center">
-  <strong>📊 Dados • 🤖 Machine Learning • 🏛️ Segurança Pública • 🌐 API REST</strong>
+  <strong> Dados • Machine Learning •  Segurança Pública •  API REST</strong>
   
   **[Documentação da API](GUIA_API.md)** | **[Notebooks](notebooks/)** | **[Dataset](data/raw/)**
 </div>

@@ -13,9 +13,9 @@ try:
     kmeans = joblib.load(os.path.join(MODEL_PATH, "kmeans_model.pkl"))
     scaler = joblib.load(os.path.join(MODEL_PATH, "scaler.pkl"))
     scaler_risk = joblib.load(os.path.join(MODEL_PATH, "scaler_risk.pkl"))
-    print("✅ Modelos carregados com sucesso!")
+    print("Modelos carregados com sucesso!")
 except Exception as e:
-    print(f"❌ Erro ao carregar modelos: {e}")
+    print(f"Erro ao carregar modelos: {e}")
     kmeans = None
     scaler = None
     scaler_risk = None
@@ -26,9 +26,9 @@ try:
     df_bairros = pd.read_csv(os.path.join(MODEL_PATH, "bairros_clusters.csv"))
     cluster_stats = pd.read_csv(os.path.join(MODEL_PATH, "cluster_stats.csv"))
     
-    print(f"✅ Dados carregados: {len(df_bairros)} bairros")
-    print(f"✅ Clusters identificados: {sorted(df_bairros['cluster'].unique())}")
-    print(f"✅ Níveis de risco: {df_bairros['nivel_risco'].value_counts().to_dict()}")
+    print(f"Dados carregados: {len(df_bairros)} bairros")
+    print(f"Clusters identificados: {sorted(df_bairros['cluster'].unique())}")
+    print(f"Níveis de risco: {df_bairros['nivel_risco'].value_counts().to_dict()}")
     
     # Também carrega dados brutos para estatísticas adicionais
     df = pd.read_csv("data/processed/dados_processados.csv")
@@ -38,9 +38,9 @@ try:
     df_ocorrencias = df_trafico.groupby('bairro').size().reset_index(name='total_ocorrencias')
     df_bairros = df_bairros.merge(df_ocorrencias, on='bairro', how='left')
     
-    print(f"✅ Estatísticas adicionais calculadas")
+    print(f"Estatísticas adicionais calculadas")
 except Exception as e:
-    print(f"❌ Erro ao carregar dados: {e}")
+    print(f"Erro ao carregar dados: {e}")
     df_bairros = pd.DataFrame()
     cluster_stats = pd.DataFrame()
 
@@ -206,6 +206,7 @@ def ranking_bairros(limite: int = 50):
     ranking = []
     for idx, row in enumerate(top_bairros.itertuples(), 1):
         ranking.append({
+
             "posicao": idx,
             "bairro": row.bairro,
             "total_ocorrencias": int(row.total_ocorrencias),
@@ -227,11 +228,11 @@ def get_recomendacao(risco: str, media_suspeitos: float) -> str:
     Baseado na lógica do notebook TESTE
     """
     if risco == "Alto":
-        return "⚠️ ATENÇÃO MÁXIMA: Área de alto risco! Perfil com elevado número de suspeitos e ocorrências armadas. Recomenda-se policiamento ostensivo, investigação aprofundada e ações preventivas imediatas."
+        return "ATENÇÃO MÁXIMA: Área de alto risco! Perfil com elevado número de suspeitos e ocorrências armadas. Recomenda-se policiamento ostensivo, investigação aprofundada e ações preventivas imediatas."
     elif risco == "Médio":
         if media_suspeitos >= 2.0:
-            return "⚡ MONITORAMENTO REFORÇADO: Área de risco médio com perfil de tráfico organizado (múltiplos suspeitos). Manter vigilância constante e estratégias de inteligência policial."
+            return " MONITORAMENTO REFORÇADO: Área de risco médio com perfil de tráfico organizado (múltiplos suspeitos). Manter vigilância constante e estratégias de inteligência policial."
         else:
-            return "⚡ MONITORAMENTO: Área de risco médio. Manter vigilância regular e ações preventivas focadas no combate ao tráfico."
+            return "MONITORAMENTO: Área de risco médio. Manter vigilância regular e ações preventivas focadas no combate ao tráfico."
     else:
-        return "✅ PATRULHAMENTO REGULAR: Área de baixo risco. Manter patrulhamento preventivo e ações comunitárias de segurança."
+        return "PATRULHAMENTO REGULAR: Área de baixo risco. Manter patrulhamento preventivo e ações comunitárias de segurança."

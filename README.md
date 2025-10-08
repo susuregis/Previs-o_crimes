@@ -33,46 +33,46 @@ Considerando isso, os objetivos do projeto são :
 ```
 Previsao_crimes/
 │
-├── 📁 app/                                          # Backend da aplicação
+├── app/                                             # Backend da aplicação
 │   ├── __init__.py                                  # Inicializador do pacote Python
 │   ├── main.py                                      # API FastAPI - servidor principal
 │   ├── clustering.py                                # Endpoints do modelo de clustering (K-Means)
 │   ├── supervisionado.py                            # Endpoints do modelo supervisionado (predição)
-│   └── 📁 models/                                   # Modelos treinados e metadados
+│   └── models/                                      # Modelos treinados e metadados
 │       ├── modelo_clustering.pkl                    # Modelo K-Means serializado
 │       ├── modelo_supervisionado.pkl                # Modelo HistGradientBoosting serializado
 │       ├── bairros_clusters.csv                     # Mapeamento de bairros para clusters
 │       └── cluster_stats.csv                        # Estatísticas de cada cluster
 │
-├── 📁 data/                                         # Diretório de dados
-│   ├── 📁 raw/                                      # Dados brutos originais
+├── data/                                            # Diretório de dados
+│   ├── raw/                                         # Dados brutos originais
 │   │   └── dataset_ocorrencias_delegacia_5.csv      # 5.002 ocorrências criminais (2022-2025)
-│   └── 📁 processed/                                # Dados processados
+│   └── processed/                                   # Dados processados
 │       └── dados_processados.csv                    # Dataset com features engenheiradas
 │
-├── 📁 notebooks/                                    # Jupyter Notebooks para análise
+├── notebooks/                                       # Jupyter Notebooks para análise
 │   ├── EDA.ipynb                                    # Análise Exploratória de Dados completa
 │   ├── modelling_supervisionado.ipynb               # Desenvolvimento do modelo de regressão
 │   └── modelling_naosupervisionado.ipynb            # Desenvolvimento do clustering K-Means
 │
-├── 📁 Pipeline/                                     # Scripts de automação
+├── Pipeline/                                        # Scripts de automação
 │   └── train_modelo_supervisionado.py               # Pipeline de retreino do modelo
 │
-├── 📁 frontend/                                     # Interface web React
-│   ├── 📁 public/                                   # Arquivos públicos estáticos
+├── frontend/                                        # Interface web React
+│   ├── public/                                      # Arquivos públicos estáticos
 │   │   └── diagnostico.html                         # Página de diagnóstico do sistema
-│   ├── 📁 src/                                      # Código-fonte React
+│   ├── src/                                         # Código-fonte React
 │   │   ├── main.jsx                                 # Entry point da aplicação React
 │   │   ├── App.jsx                                  # Componente raiz da aplicação
 │   │   ├── index.css                                # Estilos globais com Tailwind
-│   │   ├── 📁 components/                           # Componentes reutilizáveis
+│   │   ├── components/                              # Componentes reutilizáveis
 │   │   │   └── Layout.jsx                           # Layout padrão da aplicação
-│   │   ├── 📁 pages/                                # Páginas da aplicação
+│   │   ├── pages/                                   # Páginas da aplicação
 │   │   │   ├── Dashboard.jsx                        # Dashboard principal com métricas
 │   │   │   ├── ClusteringAnalysis.jsx               # Análise de agrupamento de bairros
 │   │   │   ├── PredictionAnalysis.jsx               # Predições supervisionadas
 │   │   │   └── MapView.jsx                          # Visualização geográfica (Leaflet)
-│   │   └── 📁 services/                             # Serviços externos
+│   │   └── services/                                # Serviços externos
 │   │       └── api.js                               # Cliente HTTP para comunicação com API
 │   ├── index.html                                   # HTML principal da SPA
 │   ├── package.json                                 # Dependências e scripts Node.js
@@ -80,19 +80,17 @@ Previsao_crimes/
 │   ├── tailwind.config.js                           # Configuração do Tailwind CSS
 │   └── postcss.config.js                            # Configuração do PostCSS
 │
-├── 📁 teste/                                        # Scripts de testes da API
+├── teste/                                           # Scripts de testes da API
 │   ├── test_api_clustering.py                       # Testes dos endpoints de clustering
 │   ├── test_api_predicao.py                         # Testes dos endpoints de predição
 │   └── fix_models_teste.py                          # Script de correção de modelos
 │
-├── 📁 venv/                                         # Ambiente virtual Python (não versionado)
+├── venv/                                            # Ambiente virtual Python (não versionado)
 │
-├── 📄 requirements.txt                              # Dependências Python do projeto
-├── 📄 README.md                                     # Documentação principal do projeto
-└── 📄 .gitignore                                    # Arquivos ignorados pelo Git
+├── requirements.txt                                 # Dependências Python do projeto
+├── README.md                                        # Documentação principal do projeto
+└── .gitignore                                       # Arquivos ignorados pelo Git
 ```
-
-
 
 
 

@@ -80,8 +80,8 @@
     <div class="card">
         <h2> Checklist</h2>
         <p>Servidor Vite rodando (você está vendo esta página)</p>
-        <p id="backend-status">⏳ Backend: Testando...</p>
-        <p id="react-status">❓ React: Verificar página principal</p>
+        <p id="backend-status">Backend: Testando...</p>
+        <p id="react-status">React: Verificar página principal</p>
     </div>
 
     <script>
@@ -101,19 +101,19 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    result.innerHTML = '<span class="success">✅ Backend OK!</span>\n' + 
+                    result.innerHTML = '<span class="success">Backend OK!</span>\n' + 
                                      JSON.stringify(data, null, 2);
                     document.getElementById('backend-status').innerHTML = 
-                        '<span class="success">✅ Backend: Funcionando</span>';
+                        '<span class="success"> Backend: Funcionando</span>';
                 } else {
-                    result.innerHTML = '<span class="error">❌ Backend retornou erro: ' + 
+                    result.innerHTML = '<span class="error"> Backend retornou erro: ' + 
                                      response.status + '</span>';
                 }
             } catch (error) {
-                result.innerHTML = '<span class="error">❌ Erro ao conectar no backend:</span>\n' + 
+                result.innerHTML = '<span class="error"> Erro ao conectar no backend:</span>\n' + 
                                  error.message + '\n\nVerifique se o backend está rodando em http://localhost:8000';
                 document.getElementById('backend-status').innerHTML = 
-                    '<span class="error">❌ Backend: Não conectou</span>';
+                    '<span class="error"> Backend: Não conectou</span>';
             }
         }
 
@@ -129,15 +129,15 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    result.innerHTML = '<span class="success">✅ API Clustering OK!</span>\n' + 
+                    result.innerHTML = '<span class="success">API Clustering OK!</span>\n' + 
                                      'Bairros encontrados: ' + (data.bairros ? data.bairros.length : 0) + '\n' +
                                      JSON.stringify(data, null, 2).substring(0, 500) + '...';
                 } else {
-                    result.innerHTML = '<span class="error">❌ API retornou erro: ' + 
+                    result.innerHTML = '<span class="error"> API retornou erro: ' + 
                                      response.status + '</span>';
                 }
             } catch (error) {
-                result.innerHTML = '<span class="error">❌ Erro:</span>\n' + error.message;
+                result.innerHTML = '<span class="error">Erro:</span>\n' + error.message;
             }
         }
 

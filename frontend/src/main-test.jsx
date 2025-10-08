@@ -6,7 +6,7 @@ function TestApp() {
   return (
     <div style={{ padding: '50px', textAlign: 'center' }}>
       <h1 style={{ color: 'blue', fontSize: '40px' }}>
-        ✅ REACT ESTÁ FUNCIONANDO!
+        REACT ESTÁ FUNCIONANDO!
       </h1>
       <p style={{ fontSize: '20px' }}>
         Se você está vendo isso, o React carregou corretamente.

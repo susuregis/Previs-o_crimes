@@ -29,6 +29,8 @@ Considerando isso, os objetivos do projeto são :
 
 ## 3 - Estrutura do Projeto
 
+
+```
 Previsao_crimes/
 │
 ├── 📁 app/                                          # Backend da aplicação
@@ -88,6 +90,8 @@ Previsao_crimes/
 ├── 📄 requirements.txt                              # Dependências Python do projeto
 ├── 📄 README.md                                     # Documentação principal do projeto
 └── 📄 .gitignore                                    # Arquivos ignorados pelo Git
+```
+
 
 
 

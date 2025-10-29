@@ -18,15 +18,9 @@ import itertools
 
 
 # 1. Carregar dados
-<<<<<<< HEAD
 print("\n Carregando dados...")
-df = pd.read_csv("../data/raw/dataset_ocorrencias_delegacia_5.csv")
-print(f" {len(df)} registros carregados")
-=======
-print("\n📂 Carregando dados...")
 df = pd.read_csv("data/raw/dataset_ocorrencias_delegacia_5.csv")
-print(f"✅ {len(df)} registros carregados")
->>>>>>> master
+print(f" {len(df)} registros carregados")
 
 # 2. Preparar dados
 print("\n Preparando dados...")
@@ -165,19 +159,11 @@ print(f"  RMSE: {resultados[melhor_nome]['rmse']:.4f}")
 print(f"  R²:   {resultados[melhor_nome]['r2']:.4f}")
 
 # 7. Salvar modelo
-<<<<<<< HEAD
-print("\nSalvando modelo.")
-os.makedirs("../app/models", exist_ok=True)
-
-joblib.dump(melhor_pipeline, "../app/models/modelo_supervisionado.pkl")
-print("Modelo salvo em: ../app/models/modelo_supervisionado.pkl")
-=======
-print("\n💾 Salvando modelo...")
+print("\n Salvando modelo...")
 os.makedirs("app/models", exist_ok=True)
 
 joblib.dump(melhor_pipeline, "app/models/modelo_supervisionado.pkl")
-print("✅ Modelo salvo em: app/models/modelo_supervisionado.pkl")
->>>>>>> master
+print(" Modelo salvo em: app/models/modelo_supervisionado.pkl")
 
 # 8. Testar predição
 print("\n" + "=" * 70)

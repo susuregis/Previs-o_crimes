@@ -160,25 +160,44 @@ def prever_crimes(data: dict):
     
     # Fazer predição
     try:
-<<<<<<< HEAD
-        previsao = float(modelo_supervisionado.predict(dados_predicao)[0])
-        previsao = max(0, round(previsao, 2))  # Não pode ser negativo
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro na predição: {str(e)}")
-=======
-        # Debug: verificar tipo do modelo
+    
+        print(f"Tipo de dados_predicao: {type(dados_predicao)}")
+        print(f"Shape: {dados_predicao.shape}")
+        print(f"Colunas: {dados_predicao.columns.tolist()}")
+        print(f"Tipos de dados:\n{dados_predicao.dtypes}")
+        print(f"Valores:\n{dados_predicao.to_dict('records')}")
         print(f"Tipo do modelo: {type(modelo_supervisionado)}")
-        print(f"Dados para predição:\n{dados_predicao}")
-        print(f"Tipos das colunas: {dados_predicao.dtypes}")
+        
+        # Garantir que todas as colunas são do tipo correto
+        dados_predicao['ano'] = dados_predicao['ano'].astype(int)
+        dados_predicao['mes'] = dados_predicao['mes'].astype(int)
+        dados_predicao['lag1'] = dados_predicao['lag1'].astype(float)
+        dados_predicao['lag2'] = dados_predicao['lag2'].astype(float)
+        dados_predicao['lag3'] = dados_predicao['lag3'].astype(float)
+        dados_predicao['lag4'] = dados_predicao['lag4'].astype(float)
+        dados_predicao['lag5'] = dados_predicao['lag5'].astype(float)
+        dados_predicao['lag6'] = dados_predicao['lag6'].astype(float)
+        dados_predicao['quantidade_vitimas'] = dados_predicao['quantidade_vitimas'].astype(int)
+        dados_predicao['quantidade_suspeitos'] = dados_predicao['quantidade_suspeitos'].astype(int)
+        dados_predicao['bairro'] = dados_predicao['bairro'].astype(str)
+        dados_predicao['arma_utilizada'] = dados_predicao['arma_utilizada'].astype(str)
+        dados_predicao['estacao'] = dados_predicao['estacao'].astype(str)
+        
+        print(f"Após conversão de tipos:\n{dados_predicao.dtypes}")
         
         previsao = float(modelo_supervisionado.predict(dados_predicao)[0])
         previsao = max(0, round(previsao, 2))  # Não pode ser negativo
+        print(f"Predição bem-sucedida: {previsao}")
+        print(f"=== FIM DEBUG ===\n")
     except Exception as e:
+        print(f"\n!!! ERRO NA PREDIÇÃO !!!")
+        print(f"Tipo do erro: {type(e).__name__}")
+        print(f"Mensagem: {str(e)}")
+        print(f"Dados que causaram o erro:\n{dados_predicao}")
         import traceback
-        erro_completo = traceback.format_exc()
-        print(f"Erro completo:\n{erro_completo}")
-        raise HTTPException(status_code=500, detail=f"Erro na predição: {str(e)}\nVerifique os logs do servidor para mais detalhes.")
->>>>>>> master
+        print(f"Traceback completo:\n{traceback.format_exc()}")
+    
+        raise HTTPException(status_code=500, detail=f"Erro na predição: {str(e)}")
     
     # Calcular nível de risco
     if previsao >= 10:
